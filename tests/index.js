@@ -146,3 +146,31 @@ test('multiple async script', function (t) {
     t.end()
   })
 })
+
+test('module script', function (t) {
+  var html = createHTML({
+    title: 'example',
+    script: 'example.js',
+    scriptModule: true
+  })
+
+  fs.readFile(path.join(__dirname, '/fixtures/module.html'), 'utf8', function (err, file) {
+    t.notOk(err)
+    t.equal(html, file)
+    t.end()
+  })
+})
+
+test('multiple module script', function (t) {
+  var html = createHTML({
+    title: 'example',
+    script: ['example1.js', 'example2.js'],
+    scriptModule: true
+  })
+
+  fs.readFile(path.join(__dirname, '/fixtures/module-multiple.html'), 'utf8', function (err, file) {
+    t.notOk(err)
+    t.equal(html, file)
+    t.end()
+  })
+})
