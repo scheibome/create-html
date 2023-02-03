@@ -36,8 +36,9 @@ function buildScripts (scripts, async, module) {
 
 module.exports = function (opts) {
   var title = opts.title ? `<title>${opts.title}</title>` : ''
-  var headScript = (opts.script && opts.scriptAsync || opts.scriptModule) ? buildScripts(opts.script, opts.scriptAsync, opts.scriptModule) : ''
-  var bodyScript = (opts.script && !opts.scriptAsync && !opts.scriptModule) ? buildScripts(opts.script, opts.scriptAsync, opts.scriptModule) : ''
+  var shouldScriptBeIncludedInHead = opts.scriptAsync || !opts.scriptModule
+  var headScript = (opts.script && shouldScriptBeIncludedInHead) ? buildScripts(opts.script, opts.scriptAsync, opts.scriptModule) : ''
+  var bodyScript = (opts.script && !shouldScriptBeIncludedInHead) ? buildScripts(opts.script, opts.scriptAsync, opts.scriptModule) : ''
   var favicon = opts.favicon ? `<link rel="icon" href="${opts.favicon}">` : ''
   var css = buildStylesheets(opts.css, opts.cssAsync)
   var lang = opts.lang || 'en'
